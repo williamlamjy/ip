@@ -1,9 +1,10 @@
-public class ToDos extends Task{
-    public ToDos(String description){
+public class ToDos extends Task {
+    public ToDos(String description) {
         super(description);
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return super.toString() + description;
     }
 }
