@@ -1,5 +1,6 @@
 public class Deadline extends Task {
     protected String date;
+    protected final static char TASK_ICON = 'D';
 
     public Deadline(String description, String date) {
         super(description);
@@ -12,6 +13,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + description + "(by: " + getDate() + ")";
+        return "[" + TASK_ICON + "][" + super.toString() + description + "(by: " + getDate() + ")";
     }
 }

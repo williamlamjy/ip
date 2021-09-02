@@ -1,5 +1,6 @@
 public class Event extends Task {
     protected String duration;
+    protected final static char TASK_ICON = 'E';
 
     public Event(String description, String duration) {
         super(description);
@@ -12,6 +13,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + description + "(at: " + getDuration() + ")";
+        return "[" + TASK_ICON + "][" + super.toString() + description + "(at: " + getDuration() + ")";
     }
 }
