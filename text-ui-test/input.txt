@@ -1,0 +1,7 @@
+todo run
+event marathon/4-6pm
+deadline assignment/8aug
+list
+done 3
+list
+bye
