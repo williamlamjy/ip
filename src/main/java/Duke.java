@@ -24,19 +24,29 @@ public class Duke {
         printLineSeparator();
     }
 
+    public static boolean isTask(String line) {
+        return (line.startsWith("todo") || line.startsWith("event") || line.startsWith("deadline"));
+    }
+
     public static void main(String[] args) {
         printGreetings();
-        TaskList list = new TaskList();
+        TaskManager list = new TaskManager();
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         while (!line.equals("bye")) {
             printLineSeparator();
-            if (line.equals("list")) {
-                list.printTaskList();
-            } else if (line.startsWith("done")) {
-                list.checkOffTask(line);
-            } else {
-                list.addTask(line);
+            try {
+                if (line.equals("list")) {
+                    list.printList();
+                } else if (line.startsWith("done")) {
+                    list.checkOffTask(line);
+                } else if (isTask(line)) {
+                    list.addTask(line);
+                }
+            } catch(StringIndexOutOfBoundsException e) {
+                System.out.println("Invalid task! Try again");
+            } catch(NumberFormatException e){
+                System.out.println("Please input task number completed");
             }
             printLineSeparator();
             line = in.nextLine();
@@ -44,3 +54,4 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
+

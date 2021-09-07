@@ -1,17 +1,25 @@
-public class TaskList {
+public class TaskManager {
+    public static final int MAX_TASKS = 100;
     protected Task[] tasks;
     protected int noOfTasks;
 
-    public TaskList() {
-        this.tasks = new Task[100];
+    public TaskManager() {
+        this.tasks = new Task[MAX_TASKS];
         this.noOfTasks = 0;
     }
 
-    private Task identifyTaskType(String line) {
+    private Task identifyTaskType(String line) throws StringIndexOutOfBoundsException {
+        if(!(line.contains(" "))){
+            throw new StringIndexOutOfBoundsException();
+        }
         if (line.startsWith("todo")) {
             String description = line.substring(line.indexOf(" ") + 1);
             return new ToDo(description);
-        } else {
+        }
+        else {
+            if(!(line.contains("/")) || (line.indexOf("/") + 1 == line.length())){
+                throw new StringIndexOutOfBoundsException();
+            }
             String timeline = line.substring(line.indexOf("/") + 1);
             String description = line.substring(line.indexOf(" ") + 1, line.indexOf("/"));
             if (line.startsWith("deadline")) {
@@ -22,7 +30,7 @@ public class TaskList {
         }
     }
 
-    public void addTask(String line) {
+    public void addTask(String line) throws StringIndexOutOfBoundsException {
         Task addedTask = identifyTaskType(line);
         tasks[noOfTasks] = addedTask;
         System.out.println("Noted! I have added this task:");
@@ -35,7 +43,8 @@ public class TaskList {
         String taskNo = line.substring(line.indexOf(" ") + 1);
         int taskNoComplete = Integer.parseInt(taskNo) - 1;
         if (tasks[taskNoComplete].isDone()) {
-            System.out.println("Task " + tasks[taskNoComplete].getDescription() + " has been completed already!");
+            System.out.println("duke.Task " + tasks[taskNoComplete].getDescription()
+                    + " has been completed already!");
         } else {
             tasks[taskNoComplete].markAsDone();
             System.out.println("Nice! I've marked this task as done:");
@@ -43,14 +52,16 @@ public class TaskList {
         }
     }
 
-    public void printTaskList() {
-        if (tasks[0] != null) {
+    public void printList() {
+        if (tasks[0] == null) {
+            System.out.println("Stop worrying! You have no tasks for now.");
+        }
+        else {
             System.out.println("Here are the tasks in your list:");
             for (int taskNo = 0; taskNo < noOfTasks; taskNo++) {
                 System.out.println((taskNo + 1) + ". " + tasks[taskNo]);
             }
-        } else {
-            System.out.println("Stop worrying! You have no tasks for now.");
         }
     }
 }
+
