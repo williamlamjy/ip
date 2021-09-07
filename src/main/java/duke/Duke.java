@@ -1,3 +1,6 @@
+package duke;
+
+import duke.customexception.IllegalInputException;
 import java.util.Scanner;
 
 public class Duke {
@@ -25,7 +28,7 @@ public class Duke {
     }
 
     public static boolean isTask(String line) throws IllegalInputException {
-        if(!(line.startsWith("todo") || line.startsWith("event") || line.startsWith("deadline"))){
+        if (!(line.startsWith("todo") || line.startsWith("event") || line.startsWith("deadline"))) {
             throw new IllegalInputException();
         }
         return true;
@@ -46,11 +49,11 @@ public class Duke {
                 } else if (isTask(line)) {
                     list.addTask(line);
                 }
-            } catch(StringIndexOutOfBoundsException e) {
+            } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("Invalid task! Try again");
-            } catch(IllegalInputException e){
+            } catch (IllegalInputException e) {
                 System.out.println("Invalid command! Try again");
-            } catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("Please input task number completed");
             }
             printLineSeparator();

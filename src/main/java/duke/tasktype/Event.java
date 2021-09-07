@@ -1,3 +1,7 @@
+package duke.tasktype;
+
+import duke.Task;
+
 public class Event extends Task {
     protected String duration;
     protected final static char TASK_ICON = 'E';
@@ -16,3 +20,4 @@ public class Event extends Task {
         return "[" + TASK_ICON + "][" + super.toString() + description + "(at: " + getDuration() + ")";
     }
 }
+

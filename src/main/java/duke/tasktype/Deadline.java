@@ -1,3 +1,7 @@
+package duke.tasktype;
+
+import duke.Task;
+
 public class Deadline extends Task {
     protected String date;
     protected final static char TASK_ICON = 'D';
@@ -16,3 +20,4 @@ public class Deadline extends Task {
         return "[" + TASK_ICON + "][" + super.toString() + description + "(by: " + getDate() + ")";
     }
 }
+

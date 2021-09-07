@@ -1,4 +1,6 @@
-public class Task {
+package duke;
+
+public abstract class Task {
     protected boolean isDone;
     protected String description;
 
@@ -27,3 +29,4 @@ public class Task {
         return getStatusIcon() + "] ";
     }
 }
+

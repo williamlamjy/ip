@@ -1,3 +1,9 @@
+package duke;
+
+import duke.tasktype.Deadline;
+import duke.tasktype.Event;
+import duke.tasktype.ToDo;
+
 public class TaskManager {
     public static final int MAX_TASKS = 100;
     protected Task[] tasks;
@@ -9,15 +15,14 @@ public class TaskManager {
     }
 
     private Task identifyTaskType(String line) throws StringIndexOutOfBoundsException {
-        if(!(line.contains(" "))){
+        if (!(line.contains(" "))) {
             throw new StringIndexOutOfBoundsException();
         }
         if (line.startsWith("todo")) {
             String description = line.substring(line.indexOf(" ") + 1);
             return new ToDo(description);
-        }
-        else {
-            if(!(line.contains("/")) || (line.indexOf("/") + 1 == line.length())){
+        } else {
+            if (!(line.contains("/")) || (line.indexOf("/") + 1 == line.length())) {
                 throw new StringIndexOutOfBoundsException();
             }
             String timeline = line.substring(line.indexOf("/") + 1);
@@ -43,7 +48,7 @@ public class TaskManager {
         String taskNo = line.substring(line.indexOf(" ") + 1);
         int taskNoComplete = Integer.parseInt(taskNo) - 1;
         if (tasks[taskNoComplete].isDone()) {
-            System.out.println("duke.Task " + tasks[taskNoComplete].getDescription()
+            System.out.println("Task " + tasks[taskNoComplete].getDescription()
                     + " has been completed already!");
         } else {
             tasks[taskNoComplete].markAsDone();
@@ -55,8 +60,7 @@ public class TaskManager {
     public void printList() {
         if (tasks[0] == null) {
             System.out.println("Stop worrying! You have no tasks for now.");
-        }
-        else {
+        } else {
             System.out.println("Here are the tasks in your list:");
             for (int taskNo = 0; taskNo < noOfTasks; taskNo++) {
                 System.out.println((taskNo + 1) + ". " + tasks[taskNo]);

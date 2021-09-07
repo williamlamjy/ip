@@ -1,3 +1,7 @@
+package duke.tasktype;
+
+import duke.Task;
+
 public class ToDo extends Task {
     protected final static char TASK_ICON = 'T';
 
