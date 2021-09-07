@@ -24,8 +24,11 @@ public class Duke {
         printLineSeparator();
     }
 
-    public static boolean isTask(String line) {
-        return (line.startsWith("todo") || line.startsWith("event") || line.startsWith("deadline"));
+    public static boolean isTask(String line) throws IllegalInputException {
+        if(!(line.startsWith("todo") || line.startsWith("event") || line.startsWith("deadline"))){
+            throw new IllegalInputException();
+        }
+        return true;
     }
 
     public static void main(String[] args) {
@@ -45,6 +48,8 @@ public class Duke {
                 }
             } catch(StringIndexOutOfBoundsException e) {
                 System.out.println("Invalid task! Try again");
+            } catch(IllegalInputException e){
+                System.out.println("Invalid command! Try again");
             } catch(NumberFormatException e){
                 System.out.println("Please input task number completed");
             }
@@ -54,4 +59,6 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
+
+
 
