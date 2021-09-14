@@ -1,6 +1,7 @@
 package duke;
 
 import duke.customexception.IllegalInputException;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -46,6 +47,8 @@ public class Duke {
                     list.printList();
                 } else if (line.startsWith("done")) {
                     list.checkOffTask(line);
+                }else if (line.startsWith("delete")){
+                    list.deleteTask(line);
                 } else if (isTask(line)) {
                     list.addTask(line);
                 }
@@ -54,7 +57,9 @@ public class Duke {
             } catch (IllegalInputException e) {
                 System.out.println("Invalid command! Try again");
             } catch (NumberFormatException e) {
-                System.out.println("Please input task number completed");
+                System.out.println("Please input task number in command");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println("Please input correct task number");
             }
             printLineSeparator();
             line = in.nextLine();
