@@ -3,6 +3,7 @@ package duke;
 import duke.tasktype.Deadline;
 import duke.tasktype.Event;
 import duke.tasktype.ToDo;
+
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -44,14 +45,14 @@ public class TaskManager {
         noOfTasks++;
     }
 
-    public void deleteTask(String line) throws IndexOutOfBoundsException{
+    public void deleteTask(String line) throws IndexOutOfBoundsException {
         String taskNo = line.substring(line.indexOf(" ") + 1);
         int taskNoDeleted = Integer.parseInt(taskNo) - 1;
         Task deletedTask = tasks.get(taskNoDeleted);
         tasks.remove(taskNoDeleted);
         System.out.println("Noted. I have deleted this task:");
         System.out.println(deletedTask);
-        System.out.println("Now you have " + (noOfTasks-1) + " tasks in your list");
+        System.out.println("Now you have " + (noOfTasks - 1) + " tasks in your list");
         noOfTasks--;
     }
 
@@ -66,6 +67,18 @@ public class TaskManager {
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(" [X] " + tasks.get(taskNoComplete).getDescription());
         }
+    }
+
+    public String getTask(int taskNo) {
+        return tasks.get(taskNo).textFormatting();
+    }
+
+    public void markDone(int taskNo) {
+        tasks.get(taskNo).isDone = true;
+    }
+
+    public int getSize() {
+        return tasks.size();
     }
 
     public void printList() {

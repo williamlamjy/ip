@@ -9,6 +9,10 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public String textFormatting() {
+        return String.format(super.textFormatting());
+    }
+
     @Override
     public String toString() {
         return "[" + TASK_ICON + "][" + super.toString() + description;

@@ -15,6 +15,10 @@ public class Deadline extends Task {
         return date;
     }
 
+    public String textFormatting() {
+        return String.format(super.textFormatting() + ";" + getDate());
+    }
+
     @Override
     public String toString() {
         return "[" + TASK_ICON + "][" + super.toString() + description + "(by: " + getDate() + ")";
