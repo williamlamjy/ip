@@ -7,6 +7,11 @@ import duke.tasktype.ToDo;
 public class TaskManager {
     public static final int MAX_TASKS = 100;
     protected Task[] tasks;
+
+    public int getNoOfTasks() {
+        return noOfTasks;
+    }
+
     protected int noOfTasks;
 
     public TaskManager() {
@@ -55,6 +60,14 @@ public class TaskManager {
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(" [X] " + tasks[taskNoComplete].getDescription());
         }
+    }
+
+    public String getTask(int taskNo){
+        return tasks[taskNo].textFormatting();
+    }
+
+    public void markDone(int taskNo){
+        tasks[taskNo].isDone = true;
     }
 
     public void printList() {

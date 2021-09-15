@@ -15,6 +15,9 @@ public class Event extends Task {
         return duration;
     }
 
+    public String textFormatting(){
+        return String.format(super.textFormatting() + ";" + getDuration());
+    }
     @Override
     public String toString() {
         return "[" + TASK_ICON + "][" + super.toString() + description + "(at: " + getDuration() + ")";

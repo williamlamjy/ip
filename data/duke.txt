@@ -1,0 +1,5 @@
+duke.tasktype.ToDo;false;sleep
+duke.tasktype.ToDo;false;run
+duke.tasktype.Deadline;true;sleep   ;4aug
+duke.tasktype.Event;false;meeting   ;3-4pm
+duke.tasktype.ToDo;true;run

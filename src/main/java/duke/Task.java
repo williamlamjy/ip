@@ -17,6 +17,10 @@ public abstract class Task {
         return isDone;
     }
 
+    public String textFormatting() {
+        return String.format(this.getClass().getName() + ";" + isDone + ";" + description);
+    }
+
     public void markAsDone() {
         isDone = true;
     }

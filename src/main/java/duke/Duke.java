@@ -2,6 +2,10 @@ package duke;
 
 import duke.customexception.IllegalInputException;
 import java.util.Scanner;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 public class Duke {
     public static void printLineSeparator() {
@@ -34,11 +38,13 @@ public class Duke {
         return true;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         printGreetings();
         TaskManager list = new TaskManager();
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
+        File taskFile = createFile();
+        readFile(list, taskFile);
         while (!line.equals("bye")) {
             printLineSeparator();
             try {
@@ -59,7 +65,52 @@ public class Duke {
             printLineSeparator();
             line = in.nextLine();
         }
+        writeFile(taskFile, list);
         System.out.println("Bye. Hope to see you again soon!");
+    }
+    private static void writeFile(File taskFile, TaskManager list) throws IOException {
+        FileWriter writeToFile = new FileWriter(taskFile);
+        for(int i = 0; i < list.getNoOfTasks(); i++) {
+            writeToFile.write(list.getTask(i) + "\n");
+        }
+        writeToFile.close();
+    }
+
+    private static void readFile(TaskManager list, File file) throws FileNotFoundException{
+        Scanner s = new Scanner(file);
+        int taskNo = 0;
+        while (s.hasNext()){
+            String[] textSegment = s.nextLine().split(";");
+            if (textSegment[0].equals("duke.tasktype.ToDo")) {
+                list.addTask("todo " + textSegment[2]);
+                if(textSegment[1].equals("true")){
+                    list.markDone(taskNo);
+                }
+            } else if (textSegment[0].equals("duke.tasktype.Event")) {
+                list.addTask("event " + textSegment[2] + "/" + textSegment[3]);
+                if(textSegment[1].equals("true")){
+                    list.markDone(taskNo);
+                }
+            } else {
+                list.addTask("deadline " + textSegment[2] + "/" + textSegment[3]);
+                if(textSegment[1].equals("true")){
+                    list.markDone(taskNo);
+                }
+            }
+            taskNo++;
+        }
+    }
+
+    private static File createFile() throws IOException {
+        File file = new File("data/duke.txt");
+        if (!file.exists()) {
+            File dir = new File("data");
+            dir.mkdir();
+            File newFile = new File("data/duke.txt");
+            newFile.createNewFile();
+            return newFile;
+        }
+        return file;
     }
 }
 
