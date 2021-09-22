@@ -1,6 +1,7 @@
-duke.tasktype.ToDo;false;sleep
-duke.tasktype.ToDo;false;run
-duke.tasktype.Deadline;true;sleep   ;4aug
-duke.tasktype.Event;false;meeting   ;3-4pm
+duke.tasktype.ToDo;true;run
 duke.tasktype.ToDo;true;sleep
-duke.tasktype.Event;false;work;8-5pm
+duke.tasktype.ToDo;true;run
+duke.tasktype.Event;true;sleep;3-4pm
+duke.tasktype.Event;true;poo ;3-4pm
+duke.tasktype.ToDo;true;run
+duke.tasktype.ToDo;true;read
