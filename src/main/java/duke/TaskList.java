@@ -1,7 +1,5 @@
 package duke;
 
-import duke.customexception.IllegalNumberInputException;
-
 import java.util.ArrayList;
 
 public class TaskList {
@@ -11,16 +9,12 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-
     public Task getTask(int taskNo) {
         return tasks.get(taskNo);
     }
 
     public String getTaskWithFormat(int taskNo){
         return tasks.get(taskNo).textFormatting();
-    }
-    public void markDone(int taskNo) {
-        tasks.get(taskNo).isDone = true;
     }
 
     public int getSize() {
@@ -31,12 +25,20 @@ public class TaskList {
         tasks.add(addedTask);
     }
 
-    public void deleteTask(int taskNoDeleted) throws IndexOutOfBoundsException {
+    public void deleteTask(int taskNoDeleted) {
         tasks.remove(taskNoDeleted);
     }
-
-    public void checkOffTask(int taskNoCompletedIndex) throws IllegalNumberInputException {
-
+    public TaskList findTask(String searchQuery){
+        ArrayList<Task> emptyResults = new ArrayList<>();
+        TaskList results = new TaskList(emptyResults);
+        for(Task task : tasks){
+            if(task.getDescription().contains(searchQuery)){
+                results.addNewTask(task);
+            }
+        }
+        return results;
+    }
+    public void checkOffTask(int taskNoCompletedIndex){
         tasks.get(taskNoCompletedIndex).markAsDone();
     }
 }

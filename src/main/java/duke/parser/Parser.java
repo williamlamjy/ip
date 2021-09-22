@@ -3,10 +3,7 @@ package duke.parser;
 import duke.Task;
 import duke.commands.*;
 
-import duke.customexception.IllegalInputException;
-import duke.customexception.IllegalTaskInputException;
-import duke.customexception.IllegalNumberStringException;
-import duke.customexception.IllegalTimeException;
+import duke.customexception.*;
 import duke.tasktype.Deadline;
 import duke.tasktype.Event;
 import duke.tasktype.ToDo;
@@ -17,13 +14,13 @@ public abstract class Parser {
             throw new IllegalTaskInputException();
         }
         if (userInput.startsWith("todo")) {
-            String description = userInput.substring(userInput.indexOf(" ") + 1);
+            String description = getSubstring(userInput, " ");
             return new ToDo(description);
         } else {
             if (!(userInput.contains("/")) || (userInput.indexOf("/") + 1 == userInput.length())) {
                 throw new IllegalTimeException();
             }
-            String timeline = userInput.substring(userInput.indexOf("/") + 1);
+            String timeline = getSubstring(userInput, "/");
             String description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/"));
             if (userInput.startsWith("deadline")) {
                 return new Deadline(description, timeline);
@@ -38,7 +35,8 @@ public abstract class Parser {
         }
         return true;
     }
-    public static Command parseInput(String userInput) throws IllegalInputException, IllegalTaskInputException, IllegalNumberStringException, IllegalTimeException {
+    public static Command parseInput(String userInput) throws IllegalInputException, IllegalTaskInputException,
+            IllegalNumberStringException, IllegalTimeException, IllegalFindInputException {
         if(userInput.equals("bye")){
             return new ExitProgram();
         }
@@ -51,14 +49,28 @@ public abstract class Parser {
         if(userInput.startsWith("delete")){
             return prepareDeleteTask(userInput);
         }
+        if(userInput.startsWith("find")) {
+            if(!(userInput.contains(" "))){
+                throw new IllegalFindInputException();
+            }
+            if(getSubstring(userInput," ").equals(" ")){
+                throw new IllegalFindInputException();
+            }
+            String searchQuery = getSubstring(userInput, " ");
+            return new FindTask(searchQuery);
+        }
         else if(isTask(userInput)){
             return prepareAddTask(userInput);
         }
         throw new IllegalInputException();
     }
 
+    private static String getSubstring(String userInput, String character) {
+        return userInput.substring(userInput.indexOf(character) + 1);
+    }
+
     public static Command prepareDeleteTask(String userInput){
-        String taskNo = userInput.substring(userInput.indexOf(" ") + 1);
+        String taskNo = getSubstring(userInput, " ");
         int taskNoDeleted = Integer.parseInt(taskNo) - 1;
         return new DeleteTask(taskNoDeleted);
     }
@@ -68,10 +80,10 @@ public abstract class Parser {
     }
 
     public static Command prepareCheckOffTask(String userInput) throws IllegalNumberStringException {
-        if((!userInput.contains(" ")) || (userInput.substring(userInput.indexOf(" ") + 1) == null)) {
+        if((!userInput.contains(" ")) || (getSubstring(userInput, " ") == null)) {
             throw new IllegalNumberStringException();
         }
-        String taskNo = userInput.substring(userInput.indexOf(" ") + 1);
+        String taskNo = getSubstring(userInput, " ");
         int taskNoCompleteIndex = Integer.parseInt(taskNo) - 1;
         return new CheckOffTask(taskNoCompleteIndex);
     }
