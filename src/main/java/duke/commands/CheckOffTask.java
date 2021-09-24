@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public class CheckOffTask extends Command{
     private int taskNoCompletedIndex;
+    public static final String COMMAND_WORD = "done";
 
     public CheckOffTask(int taskNoCompletedIndex) {
         this.taskNoCompletedIndex = taskNoCompletedIndex;

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class FindTask extends Command{
     private String searchQuery;
-
+    public static final String COMMAND_WORD = "find";
     public FindTask(String searchQuery){
         this.searchQuery = searchQuery;
     }
