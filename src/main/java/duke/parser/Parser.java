@@ -10,8 +10,12 @@ import duke.customexception.IllegalTimeException;
 import duke.tasktype.Deadline;
 import duke.tasktype.Event;
 import duke.tasktype.ToDo;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Parser {
+    public static LocalDate deadlineDate;
+
     public static Task identifyTaskType(String userInput) throws IllegalTaskInputException, IllegalTimeException {
         if (!(userInput.contains(" "))) {
             throw new IllegalTaskInputException();
@@ -26,7 +30,8 @@ public abstract class Parser {
             String timeline = userInput.substring(userInput.indexOf("/") + 1);
             String description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/"));
             if (userInput.startsWith("deadline")) {
-                return new Deadline(description, timeline);
+                deadlineDate = LocalDate.parse(timeline);
+                return new Deadline(description, deadlineDate);
             } else {
                 return new Event(description, timeline);
             }

@@ -12,6 +12,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+
+import static duke.parser.Parser.deadlineDate;
 
 public class Storage {
     private File file;
@@ -52,7 +55,8 @@ public class Storage {
                     tasks.get(taskNo).markAsDone();
                 }
             } else {
-                Task deadline = new Deadline(textSegment[2], textSegment[3]);
+                deadlineDate = LocalDate.parse(textSegment[3]);
+                Task deadline = new Deadline(textSegment[2], deadlineDate);
                 tasks.add(deadline);
                 if (textSegment[1].equals("true")) {
                     tasks.get(taskNo).markAsDone();
@@ -64,3 +68,4 @@ public class Storage {
     }
 
 }
+

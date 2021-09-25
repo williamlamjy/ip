@@ -2,17 +2,20 @@ package duke.tasktype;
 
 import duke.Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    protected String date;
+    protected LocalDate deadlineDate;
     protected final static char TASK_ICON = 'D';
 
-    public Deadline(String description, String date) {
+    public Deadline(String description, LocalDate deadlineDate) {
         super(description);
-        this.date = date;
+        this.deadlineDate = deadlineDate;
     }
 
     public String getDate() {
-        return date;
+        return deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     public String textFormatting() {
