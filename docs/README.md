@@ -16,7 +16,7 @@ Luke is an interactive desktop application that serves as a task manager that op
 
 ---------------
 
-##Quick Start
+## Quick Start
 
 1. Ensure you have installed Java `11` or above on your computer.
 2. Download the `ip.jar` file from v0.2 from this [link](https://github.com/williamlamjy/ip/releases)
