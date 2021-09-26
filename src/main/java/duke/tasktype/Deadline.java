@@ -2,28 +2,32 @@ package duke.tasktype;
 
 import duke.Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * This class stores the information of a deadline task
  * It has an additional deadlineDate trait which stores
  * when this task is due in a YYYY-MM-DD format.
  */
 public class Deadline extends Task {
-    protected String date;
+    protected LocalDate deadlineDate;
     protected final static char TASK_ICON = 'D';
 
     /**
      * Initialises the deadline class
      * @param description Description of the deadline
-     * @param date The deadline date
+     * @param deadlineDate The deadline date
      */
-    public Deadline(String description, String date) {
+    public Deadline(String description, LocalDate deadlineDate) {
         super(description);
-        this.date = date;
+        this.deadlineDate = deadlineDate;
     }
 
     public String getDate() {
-        return date;
+        return deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
+
 
     /**
      * Returns a string of the formatted deadline to be written into the file
@@ -31,7 +35,7 @@ public class Deadline extends Task {
      */
     @Override
     public String textFormatting() {
-        return String.format(super.textFormatting() + ";" + getDate());
+        return String.format(super.textFormatting() + ";" + deadlineDate);
     }
 
     /**

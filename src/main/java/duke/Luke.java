@@ -63,7 +63,7 @@ public class Luke {
      * Main method creates the instance of the program and runs it.
      */
     public static void main(String[] args) {
-        new Luke("data/tasks.txt").run();
+        new Luke("data/luke.txt").run();
     }
 }
 

@@ -1,4 +1,0 @@
-duke.tasktype.ToDo;false;run
-duke.tasktype.Event;true;meeting ;3-4pm
-duke.tasktype.ToDo;true;run
-duke.tasktype.ToDo;false;run
