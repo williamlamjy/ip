@@ -16,6 +16,7 @@ import java.time.LocalDate;
  */
 public abstract class Parser {
     public static LocalDate deadlineDate;
+
     private static String parseAfterSpace(String userInput) {
         return userInput.substring(userInput.indexOf(" ") + 1);
     }

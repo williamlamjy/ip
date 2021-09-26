@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
  * It has an additional deadlineDate trait which stores
  * when this task is due in a YYYY-MM-DD format.
  */
+
 public class Deadline extends Task {
     protected LocalDate deadlineDate;
     protected final static char TASK_ICON = 'D';

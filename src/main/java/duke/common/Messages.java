@@ -34,8 +34,8 @@ public class Messages {
     public static final String TASKS_USER_GUIDE_MESSAGE = "todo: Adds a new todo task "
             + "Parameters: DESCRIPTION\n"
             + "deadline: Adds a new deadline task "
-            + "Parameters: DESCRIPTION /DATE\n"
-            + "event: Adds a new event task "
+            + "Parameters: DESCRIPTION /DATE(YYYY-MM-DD)\n"
+            + "event: Adds a new event task"
             + "Parameters: DESCRIPTION /DURATION\n"
             + "Example: event jogging /3-4pm";
     public static final String WELCOME_MESSAGE =  "Hello from\n" + LOGO
