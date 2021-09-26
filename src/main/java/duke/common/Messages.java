@@ -1,5 +1,8 @@
 package duke.common;
 
+/**
+ * This class stores the messages that are shown to the user on the command line interface.
+ */
 public class Messages {
     public static final String LINE_SEPARATOR = "---------------------" +
             "---------------------" +

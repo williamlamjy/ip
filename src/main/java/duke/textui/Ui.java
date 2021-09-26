@@ -13,9 +13,16 @@ import static duke.common.Messages.TASK_DELETED_MESSAGE;
 import static duke.common.Messages.TASK_LIST_MESSAGE;
 import static duke.common.Messages.FILE_ERROR_MESSAGE;
 
+/**
+ * This class is the user interface of the program.
+ * It takes in user input and displays the corresponding information on the command line.
+ */
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Initializes the user interface
+     */
     public Ui(){
         this.scanner = new Scanner(System.in);
     }
