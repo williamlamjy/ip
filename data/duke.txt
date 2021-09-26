@@ -1,4 +1,8 @@
-duke.tasktype.ToDo;false;run
-duke.tasktype.Event;true;meeting ;3-4pm
 duke.tasktype.ToDo;true;run
-duke.tasktype.ToDo;false;run
+duke.tasktype.ToDo;true;sleep
+duke.tasktype.ToDo;true;run
+duke.tasktype.Event;true;sleep;3-4pm
+duke.tasktype.Event;true;poo ;3-4pm
+duke.tasktype.ToDo;true;run
+duke.tasktype.ToDo;true;read
+duke.tasktype.Deadline;false;sleep;Aug 08 2018

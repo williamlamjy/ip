@@ -9,11 +9,13 @@ import duke.customexception.*;
 import duke.tasktype.Deadline;
 import duke.tasktype.Event;
 import duke.tasktype.ToDo;
+import java.time.LocalDate;
 
 /**
  * This class parses user inputs and returns the corresponding command or task type.
  */
 public abstract class Parser {
+    public static LocalDate deadlineDate;
 
     private static String parseAfterSpace(String userInput) {
         return userInput.substring(userInput.indexOf(" ") + 1);
@@ -79,7 +81,8 @@ public abstract class Parser {
             String timeline = getTimeline(userInput);
             String description = getDescription(userInput);
             if (userInput.startsWith("deadline")) {
-                return new Deadline(description, timeline);
+                deadlineDate = LocalDate.parse(timeline);
+                return new Deadline(description, deadlineDate);
             } else {
                 return new Event(description, timeline);
             }
