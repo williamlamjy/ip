@@ -4,14 +4,14 @@ package duke.common;
  * This class stores the messages that are shown to the user on the command line interface.
  */
 public class Messages {
-    public static final String LINE_SEPARATOR = "---------------------" +
-            "---------------------" +
-            "---------------------" +
-            "---------------------" +
-            "---------------------" +
-            "---------------------" +
-            "---------------------" +
-            "---------------------";
+    public static final String LINE_SEPARATOR = "---------------------"
+            + "---------------------"
+            + "---------------------"
+            + "---------------------"
+            + "---------------------"
+            + "---------------------"
+            + "---------------------"
+            + "---------------------";
     public static final String LOGO = " _           _        \n"
             + "| |    _   _| | _____ \n"
             + "| |   | | | | |/ / _ \\\n"
@@ -28,18 +28,20 @@ public class Messages {
             + "Parameters: NUMBER\n"
             + "delete: deletes a task from the list "
             + "Parameters: NUMBER\n"
-            + "Example: done 6";
+            + "Example: done 6\n"
+            + "find: finds all matching tasks to your search query"
+            + " Parameters: SEARCH_QUERY";
     public static final String TASKS_USER_GUIDE_MESSAGE = "todo: Adds a new todo task "
             + "Parameters: DESCRIPTION\n"
             + "deadline: Adds a new deadline task "
             + "Parameters: DESCRIPTION /DATE\n"
-            + "event: Adds a new event task"
+            + "event: Adds a new event task "
             + "Parameters: DESCRIPTION /DURATION\n"
-            + "Example: event jogging /3-4pm\n";
+            + "Example: event jogging /3-4pm";
     public static final String WELCOME_MESSAGE =  "Hello from\n" + LOGO
             + "Im your very own personal task manager!\n"
             + "Begin by inputting your desired task\n"
-            + LINE_SEPARATOR + "\n" + TASKS_USER_GUIDE_MESSAGE + LINE_SEPARATOR
+            + LINE_SEPARATOR + "\n" + TASKS_USER_GUIDE_MESSAGE + "\n" + LINE_SEPARATOR
             + "\nOr you can amend your current tasks in your list!\n"
             + "list: lists all your current tasks in the list\n"
             + FUNCTIONS_USER_GUIDE_MESSAGE + "\n" + LINE_SEPARATOR;

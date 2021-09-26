@@ -69,6 +69,16 @@ public class Ui {
             }
         }
     }
+    public void showSearchList(TaskList results){
+        if(results.getSize() == 0){
+            System.out.println("Sorry! Could not find what you are looking for");
+        } else{
+            System.out.println("Here's what I have found!");
+            for(int resultNo = 0; resultNo < results.getSize(); resultNo++){
+                System.out.println((resultNo + 1) + "." + results.getTask(resultNo));
+            }
+        }
+    }
     public void showErrorMessage(Exception e){
         System.out.println(e.getMessage());
     }

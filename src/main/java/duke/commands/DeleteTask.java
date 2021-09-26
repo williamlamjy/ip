@@ -1,12 +1,16 @@
 package duke.commands;
 
+import duke.customexception.IllegalNumberInputException;
+
 import java.io.IOException;
 
 /**
  * This class deletes a task from the task list.
  */
 public class DeleteTask extends Command{
+
     private int deletedTaskIndex;
+    public static final String COMMAND_WORD = "delete";
 
     /**
      * Initialises the DeleteTask class.
@@ -23,7 +27,10 @@ public class DeleteTask extends Command{
      * @throws IOException
      */
     @Override
-    public void execute() throws IOException {
+    public void execute() throws IOException, IllegalNumberInputException {
+        if(deletedTaskIndex < 0 || deletedTaskIndex >= tasks.getSize()){
+            throw new IllegalNumberInputException();
+        }
         ui.showTaskDeletedMessage(tasks.getTask(deletedTaskIndex), tasks);
         tasks.deleteTask(deletedTaskIndex);
         storage.writeFile(tasks);

@@ -3,10 +3,9 @@ package duke.parser;
 import duke.Task;
 import duke.commands.*;
 
-import duke.customexception.IllegalInputException;
-import duke.customexception.EmptyTaskInputException;
-import duke.customexception.EmptyNumberInputException;
-import duke.customexception.EmptyTimeException;
+
+import duke.customexception.*;
+
 import duke.tasktype.Deadline;
 import duke.tasktype.Event;
 import duke.tasktype.ToDo;
@@ -15,6 +14,28 @@ import duke.tasktype.ToDo;
  * This class parses user inputs and returns the corresponding command or task type.
  */
 public abstract class Parser {
+
+    private static String parseAfterSpace(String userInput) {
+        return userInput.substring(userInput.indexOf(" ") + 1);
+    }
+
+    private static int getTaskIndex(String userInput) {
+        String taskNo = parseAfterSpace(userInput);
+        int taskIndex = Integer.parseInt(taskNo) - 1;
+        return taskIndex;
+    }
+
+    private static boolean isSeparated(String userInput){
+        return userInput.contains(" ");
+    }
+
+    private static String getCommand(String userInput){
+        String[] words = userInput.trim().split(" ", 2);
+        String commandWord = words[0];
+        return commandWord;
+    }
+
+
     /**
      * Returns the corresponding command object from the user input.
      * Error messages will be shown if the input format is incorrect.
@@ -23,38 +44,40 @@ public abstract class Parser {
      * @throws Exception Throws an exception when there is an error in the user input format.
      */
     public static Command parseInput(String userInput) throws Exception {
-        if(userInput.equals("bye")){
-            return new ExitProgram();
-        }
-        if(userInput.equals("list")){
-            return new PrintTasks();
-        }
-        if(userInput.startsWith("done")){
-            return prepareCheckOffTask(userInput);
-        }
-        if(userInput.startsWith("delete")){
-            return prepareDeleteTask(userInput);
-        }
-        else if(isTask(userInput)){
-            return prepareAddTask(userInput);
-        }
-        throw new IllegalInputException();
-    }
+                String commandWord = getCommand(userInput);
+                switch (commandWord) {
+                case ExitProgram.COMMAND_WORD:
+                    return new ExitProgram();
+                case PrintTasks.COMMAND_WORD:
+                    return new PrintTasks();
+                case CheckOffTask.COMMAND_WORD:
+                    return prepareCheckOffTask(userInput);
+                case DeleteTask.COMMAND_WORD:
+                    return prepareDeleteTask(userInput);
+                case FindTask.COMMAND_WORD:
+                    validFindInputChecker(userInput);
+                    String searchQuery = parseAfterSpace(userInput);
+                    return new FindTask(searchQuery);
+                case AddTask.TODO_COMMAND:
+                case AddTask.EVENT_COMMAND:
+                case AddTask.DEADLINE_COMMAND:
+                    return prepareAddTask(commandWord, userInput);
+                default:
+                    throw new IllegalInputException();
+                }
+            }
 
-
-    public static Task identifyTaskType(String userInput) throws EmptyTaskInputException, EmptyTimeException {
+    public static Task identifyTaskType(String commandWord, String userInput) throws EmptyTaskInputException, EmptyTimeException {
         if (!(userInput.contains(" "))) {
             throw new EmptyTaskInputException();
         }
-        if (userInput.startsWith("todo")) {
-            String description = userInput.substring(userInput.indexOf(" ") + 1);
+        if(commandWord.equals(AddTask.TODO_COMMAND)){
+            String description = parseAfterSpace(userInput);
             return new ToDo(description);
         } else {
-            if (!(userInput.contains("/")) || (userInput.indexOf("/") + 1 == userInput.length())) {
-                throw new EmptyTimeException();
-            }
-            String timeline = userInput.substring(userInput.indexOf("/") + 1);
-            String description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/"));
+            validTimelineChecker(userInput);
+            String timeline = getTimeline(userInput);
+            String description = getDescription(userInput);
             if (userInput.startsWith("deadline")) {
                 return new Deadline(description, timeline);
             } else {
@@ -62,29 +85,50 @@ public abstract class Parser {
             }
         }
     }
-    public static boolean isTask(String line) throws IllegalInputException {
-        if (!(line.startsWith("todo") || line.startsWith("event") || line.startsWith("deadline"))) {
-            throw new IllegalInputException();
-        }
-        return true;
+
+    private static String getDescription(String userInput) {
+        String description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/"));
+        return description;
     }
 
-    public static Command prepareDeleteTask(String userInput){
-        String taskNo = userInput.substring(userInput.indexOf(" ") + 1);
-        int taskNoDeleted = Integer.parseInt(taskNo) - 1;
+    private static String getTimeline(String userInput) {
+        String timeline = userInput.substring(userInput.indexOf("/") + 1);
+        return timeline;
+    }
+
+    private static void validTimelineChecker(String userInput) throws EmptyTimeException {
+        boolean isTimelineSeparated = userInput.contains("/");
+        boolean isTimelineEmpty = (userInput.indexOf("/") + 1 == userInput.length());
+        if (!isTimelineSeparated || isTimelineEmpty) {
+            throw new EmptyTimeException();
+        }
+    }
+
+    private static void validFindInputChecker(String userInput) throws IllegalFindInputException {
+        if (!isSeparated(userInput)) {
+            throw new IllegalFindInputException();
+        }
+    }
+
+    public static Command prepareDeleteTask(String userInput) throws EmptyNumberInputException{
+        if(!isSeparated(userInput) || (parseAfterSpace(userInput).equals(null))) {
+            throw new EmptyNumberInputException();
+        }
+        int taskNoDeleted = getTaskIndex(userInput);
         return new DeleteTask(taskNoDeleted);
     }
-    public static Command prepareAddTask(String userInput) throws EmptyTaskInputException, EmptyTimeException {
-        Task addedTask = Parser.identifyTaskType(userInput);
+
+
+    public static Command prepareAddTask(String commandWord, String userInput) throws EmptyTaskInputException, EmptyTimeException {
+        Task addedTask = Parser.identifyTaskType(commandWord, userInput);
         return new AddTask(addedTask);
     }
 
     public static Command prepareCheckOffTask(String userInput) throws EmptyNumberInputException {
-        if((!userInput.contains(" ")) || (userInput.substring(userInput.indexOf(" ") + 1) == null)) {
+        if(!isSeparated(userInput) || (parseAfterSpace(userInput).equals(null))) {
             throw new EmptyNumberInputException();
         }
-        String taskNo = userInput.substring(userInput.indexOf(" ") + 1);
-        int taskNoCompleteIndex = Integer.parseInt(taskNo) - 1;
-        return new CheckOffTask(taskNoCompleteIndex);
+        int taskNoCompletedIndex = getTaskIndex(userInput);
+        return new CheckOffTask(taskNoCompletedIndex);
     }
 }
