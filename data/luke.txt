@@ -1,6 +1,2 @@
-duke.tasktype.ToDo;false;sleep
-duke.tasktype.Deadline;true;exam;2018-08-10
-duke.tasktype.Deadline;false;run;2020-10-10
-duke.tasktype.ToDo;true;read
-duke.tasktype.Event;false;ski;3-4pm
-duke.tasktype.Deadline;false;exam;2021-10-10
+duke.tasktype.Deadline;false;CG2027 exam;2021-12-01
+duke.tasktype.Event;true;afternoon nap;3-4pm
