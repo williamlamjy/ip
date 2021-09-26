@@ -13,26 +13,48 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * This class stores data of the task list by reading, writing and loading the luke file.
+ */
 public class Storage {
     private File file;
 
+    /**
+     * Initializes the Storage class with a file object.
+     * If the file does not exist, a new file and directory will be created.
+     * @param filePath name and directory of the file to be loaded/saved.
+     * @throws Exception Throws exception when there is an error loading/reading the file.
+     */
     public Storage(String filePath) throws Exception{
         this.file = new File(filePath);
         if (!this.file.exists()) {
             File dir = new File("data");
             dir.mkdir();
-            this.file = new File("data/duke.txt");
+            this.file = new File("data/luke.txt");
             file.createNewFile();
         }
     }
-    public void writeFile(TaskList list) throws IOException {
+
+    /**
+     * Writes the current tasks to the file and stores the data.
+     * @param tasks The current task list that is written to the file
+     * @throws IOException Exception thrown when there is an error writing to the file.
+     */
+    public void writeFile(TaskList tasks) throws IOException {
         FileWriter writeToFile = new FileWriter(this.file);
-        for (int i = 0; i < list.getSize(); i++) {
-            writeToFile.write(list.getTaskWithFormat(i) + "\n");
+        for (int i = 0; i < tasks.getSize(); i++) {
+            writeToFile.write(tasks.getTaskWithFormat(i) + "\n");
         }
         writeToFile.close();
     }
 
+    /**
+     * Creates an arraylist to store all the current tasks in the file.
+     * This arraylist will be passed to store the current commands.
+     * This enables the user to load up the pre-existing task list and add more tasks to it.
+     * @return
+     * @throws FileNotFoundException
+     */
     public ArrayList<Task> readFile() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner s = new Scanner(file);

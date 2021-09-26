@@ -1,0 +1,3 @@
+duke.tasktype.ToDo;false;rest
+duke.tasktype.Deadline;false;wake up;4aug
+duke.tasktype.Event;false;running ;3-4pm

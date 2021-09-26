@@ -3,11 +3,16 @@ package duke.parser;
 import duke.Task;
 import duke.commands.*;
 
+
 import duke.customexception.*;
+
 import duke.tasktype.Deadline;
 import duke.tasktype.Event;
 import duke.tasktype.ToDo;
 
+/**
+ * This class parses user inputs and returns the corresponding command or task type.
+ */
 public abstract class Parser {
 
     private static String parseAfterSpace(String userInput) {
@@ -30,9 +35,41 @@ public abstract class Parser {
         return commandWord;
     }
 
-    public static Task identifyTaskType(String commandWord, String userInput) throws IllegalTaskInputException, IllegalTimeException {
-        if (!isSeparated(userInput)) {
-            throw new IllegalTaskInputException();
+
+    /**
+     * Returns the corresponding command object from the user input.
+     * Error messages will be shown if the input format is incorrect.
+     * @param userInput The string that the user enters into the command line interface.
+     * @return Command object
+     * @throws Exception Throws an exception when there is an error in the user input format.
+     */
+    public static Command parseInput(String userInput) throws Exception {
+                String commandWord = getCommand(userInput);
+                switch (commandWord) {
+                case ExitProgram.COMMAND_WORD:
+                    return new ExitProgram();
+                case PrintTasks.COMMAND_WORD:
+                    return new PrintTasks();
+                case CheckOffTask.COMMAND_WORD:
+                    return prepareCheckOffTask(userInput);
+                case DeleteTask.COMMAND_WORD:
+                    return prepareDeleteTask(userInput);
+                case FindTask.COMMAND_WORD:
+                    validFindInputChecker(userInput);
+                    String searchQuery = parseAfterSpace(userInput);
+                    return new FindTask(searchQuery);
+                case AddTask.TODO_COMMAND:
+                case AddTask.EVENT_COMMAND:
+                case AddTask.DEADLINE_COMMAND:
+                    return prepareAddTask(commandWord, userInput);
+                default:
+                    throw new IllegalInputException();
+                }
+            }
+
+    public static Task identifyTaskType(String commandWord, String userInput) throws EmptyTaskInputException, EmptyTimeException {
+        if (!(userInput.contains(" "))) {
+            throw new EmptyTaskInputException();
         }
         if(commandWord.equals(AddTask.TODO_COMMAND)){
             String description = parseAfterSpace(userInput);
@@ -59,11 +96,11 @@ public abstract class Parser {
         return timeline;
     }
 
-    private static void validTimelineChecker(String userInput) throws IllegalTimeException {
+    private static void validTimelineChecker(String userInput) throws EmptyTimeException {
         boolean isTimelineSeparated = userInput.contains("/");
         boolean isTimelineEmpty = (userInput.indexOf("/") + 1 == userInput.length());
         if (!isTimelineSeparated || isTimelineEmpty) {
-            throw new IllegalTimeException();
+            throw new EmptyTimeException();
         }
     }
 
@@ -73,47 +110,23 @@ public abstract class Parser {
         }
     }
 
-    public static Command parseInput(String userInput) throws IllegalInputException, IllegalTaskInputException,
-            IllegalNumberStringException, IllegalTimeException, IllegalFindInputException {
-        String commandWord = getCommand(userInput);
-        switch (commandWord) {
-        case ExitProgram.COMMAND_WORD:
-            return new ExitProgram();
-        case PrintTasks.COMMAND_WORD:
-            return new PrintTasks();
-        case CheckOffTask.COMMAND_WORD:
-            return prepareCheckOffTask(userInput);
-        case DeleteTask.COMMAND_WORD:
-            return prepareDeleteTask(userInput);
-        case FindTask.COMMAND_WORD:
-            validFindInputChecker(userInput);
-            String searchQuery = parseAfterSpace(userInput);
-            return new FindTask(searchQuery);
-        case AddTask.TODO_COMMAND:
-        case AddTask.EVENT_COMMAND:
-        case AddTask.DEADLINE_COMMAND:
-            return prepareAddTask(commandWord, userInput);
-        default:
-            throw new IllegalInputException();
-        }
-    }
-
-    public static Command prepareDeleteTask(String userInput) throws IllegalNumberStringException{
+    public static Command prepareDeleteTask(String userInput) throws EmptyNumberInputException{
         if(!isSeparated(userInput) || (parseAfterSpace(userInput).equals(null))) {
-            throw new IllegalNumberStringException();
+            throw new EmptyNumberInputException();
         }
         int taskNoDeleted = getTaskIndex(userInput);
         return new DeleteTask(taskNoDeleted);
     }
 
-    public static Command prepareAddTask(String commandWord, String userInput) throws IllegalTaskInputException, IllegalTimeException {
+
+    public static Command prepareAddTask(String commandWord, String userInput) throws EmptyTaskInputException, EmptyTimeException {
         Task addedTask = Parser.identifyTaskType(commandWord, userInput);
         return new AddTask(addedTask);
     }
 
-    public static Command prepareCheckOffTask(String userInput) throws IllegalNumberStringException {
+    public static Command prepareCheckOffTask(String userInput) throws EmptyNumberInputException {
         if(!isSeparated(userInput) || (parseAfterSpace(userInput).equals(null))) {
-            throw new IllegalNumberStringException();
+            throw new EmptyNumberInputException();
         }
         int taskNoCompletedIndex = getTaskIndex(userInput);
         return new CheckOffTask(taskNoCompletedIndex);
