@@ -13,8 +13,11 @@ Luke is an interactive desktop application that serves as a task manager that op
     - **Exiting the program: `bye`**
     - **Storing the data**
 - **Command Summary**
+
 ---------------
+
 ##Quick Start
+
 1. Ensure you have installed Java `11` or above on your computer.
 2. Download the `ip.jar` file from v0.2 from this [link](https://github.com/williamlamjy/ip/releases)
 3. Note down where you have downloaded the `ip.jar` file and **copy the filepath**.
@@ -89,7 +92,7 @@ Now you have 10 tasks in your list.
 
 ### Listing all current tasks: `list`
 
-Shows a list of all the current tasks in the task list.
+Shows a list of all the current tasks.
 
 Format: `list`
 
