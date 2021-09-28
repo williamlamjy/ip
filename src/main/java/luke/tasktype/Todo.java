@@ -1,28 +1,30 @@
-package duke.tasktype;
+package luke.tasktype;
 
-import duke.Task;
+import luke.Task;
 
 /**
  * This class stores the information of the todo class.
  */
-public class ToDo extends Task {
+public class Todo extends Task {
     protected final static char TASK_ICON = 'T';
 
-    public ToDo(String description) {
+    public Todo(String description) {
         super(description);
     }
 
     /**
      * Returns the formatted task as a string to be written into the file.
+     *
      * @return String of the formatted todo.
      */
     @Override
-    public String textFormatting() {
-        return String.format(super.textFormatting());
+    public String textFileFormatting() {
+        return String.format(super.textFileFormatting());
     }
 
     /**
      * Returns the formatted task as a string to be shown on the command line.
+     *
      * @return String of the formatted todo.
      */
     @Override

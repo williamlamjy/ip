@@ -1,6 +1,6 @@
-package duke.tasktype;
+package luke.tasktype;
 
-import duke.Task;
+import luke.Task;
 
 /**
  * This class stores the information of an event task
@@ -12,8 +12,9 @@ public class Event extends Task {
 
     /**
      * This initialises the event class
+     *
      * @param description Description of the event
-     * @param duration Duration of the event
+     * @param duration    Duration of the event
      */
     public Event(String description, String duration) {
         super(description);
@@ -26,15 +27,17 @@ public class Event extends Task {
 
     /**
      * Returns the formatted task as a string to be written into the file.
+     *
      * @return String of the formatted event
      */
     @Override
-    public String textFormatting() {
-        return String.format(super.textFormatting() + ";" + getDuration());
+    public String textFileFormatting() {
+        return String.format(super.textFileFormatting() + ";" + getDuration());
     }
 
     /**
      * Returns the formatted task as a string to be displayed on the command line.
+     *
      * @return String of the formatted event
      */
     @Override

@@ -1,10 +1,10 @@
-package duke.commands;
+package luke.commands;
 
-import duke.TaskList;
-import duke.textui.Ui;
-import duke.customexception.IllegalNumberInputException;
-import duke.customexception.EmptyNumberInputException;
-import duke.filemanager.Storage;
+import luke.TaskList;
+import luke.customexception.EmptyNumberInputException;
+import luke.customexception.IllegalNumberInputException;
+import luke.filemanager.Storage;
+import luke.textui.Ui;
 
 import java.io.IOException;
 
@@ -20,23 +20,24 @@ public abstract class Command {
     /**
      * Initialises the command class.
      */
-    public Command(){
+    public Command() {
     }
 
     /**
      * Sets the data by passing through the current taskList, ui and storage
+     *
      * @param taskList the current list of tasks
-     * @param ui the current user interface
-     * @param storage the current file storage
+     * @param ui       the current user interface
+     * @param storage  the current file storage
      */
-    public void setData(TaskList taskList, Ui ui, Storage storage){
+    public void setData(TaskList taskList, Ui ui, Storage storage) {
         this.ui = ui;
         this.tasks = taskList;
         this.storage = storage;
         this.isExit = false;
     }
 
-    public boolean isExit(){
+    public boolean isExit() {
         return this.isExit;
     }
 

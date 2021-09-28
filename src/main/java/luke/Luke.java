@@ -1,13 +1,13 @@
-package duke;
+package luke;
 
-import duke.commands.Command;
-import duke.filemanager.Storage;
-import duke.parser.Parser;
-import duke.textui.Ui;
+import luke.commands.Command;
+import luke.filemanager.Storage;
+import luke.parser.Parser;
+import luke.textui.Ui;
 
 /**
  * This program acts as a task manager list. It is able to read in tasks and add them to the list.
- * It is able to mark tasks complete, delete tasks and print current tasks out.
+ * It is able to mark tasks complete, find tasks, delete tasks and print current tasks out.
  *
  * @author Lam Junyu William
  * @version v0.1
@@ -24,27 +24,26 @@ public class Luke {
      *
      * @param filePath path of the file where data of the pre-existing task list is stored at.
      */
-    public Luke(String filePath){
-        try{
+    public Luke(String filePath) {
+        try {
             ui = new Ui();
             storage = new Storage(filePath);
             tasks = new TaskList(storage.readFile());
-        } catch (Exception e){
+        } catch (Exception e) {
             ui.showFileErrorMessage();
             System.exit(-1);
         }
     }
 
     /**
-     * Runs the program. It reads in the input from the user.
-     * Then it executes the corresponding command.
+     * Runs the program and reads in input from the user and executes the corresponding command.
      * Any error in the input will be reflected through error messages.
      */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
-        while(!isExit){
-            try{
+        while (!isExit) {
+            try {
                 String fullCommand = ui.readCommand();
                 ui.showLineSeparator();
                 Command command = Parser.parseInput(fullCommand);
@@ -53,7 +52,7 @@ public class Luke {
                 isExit = command.isExit();
             } catch (Exception e) {
                 ui.showErrorMessage(e);
-            } finally{
+            } finally {
                 ui.showLineSeparator();
             }
         }

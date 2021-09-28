@@ -1,4 +1,4 @@
-package duke.common;
+package luke.common;
 
 /**
  * This class stores the messages that are shown to the user on the command line interface.
@@ -24,7 +24,9 @@ public class Messages {
     public static final String TASK_DELETED_MESSAGE = "Noted! I have deleted this task:";
     public static final String TASK_LIST_MESSAGE = "Okay! Here are your current tasks:";
     public static final String FILE_ERROR_MESSAGE = "Oh no! There seems to be an error loading this file";
-    public static final String FUNCTIONS_USER_GUIDE_MESSAGE =  "done: marks a task from the list complete "
+    public static final String INVALID_SEARCH_MESSAGE = "Oh no! I cant find what you are looking for";
+    public static final String EMPTY_TASK_LIST_MESSAGE = "Stop worrying! You have no tasks for now";
+    public static final String FUNCTIONS_USER_GUIDE_MESSAGE = "done: marks a task from the list complete "
             + "Parameters: NUMBER\n"
             + "delete: deletes a task from the list "
             + "Parameters: NUMBER\n"
@@ -38,7 +40,7 @@ public class Messages {
             + "event: Adds a new event task"
             + "Parameters: DESCRIPTION /DURATION\n"
             + "Example: event jogging /3-4pm";
-    public static final String WELCOME_MESSAGE =  "Hello from\n" + LOGO
+    public static final String WELCOME_MESSAGE = "Hello from\n" + LOGO
             + "Im your very own personal task manager!\n"
             + "Begin by inputting your desired task\n"
             + LINE_SEPARATOR + "\n" + TASKS_USER_GUIDE_MESSAGE + "\n" + LINE_SEPARATOR

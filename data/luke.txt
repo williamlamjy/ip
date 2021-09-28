@@ -1,2 +1,3 @@
-duke.tasktype.Deadline;false;CG2027 exam;2021-12-01
-duke.tasktype.Event;true;afternoon nap;3-4pm
+luke.tasktype.Todo;true;run
+luke.tasktype.Deadline;true;exam;2020-08-08
+luke.tasktype.Deadline;false;;2020-08-08
