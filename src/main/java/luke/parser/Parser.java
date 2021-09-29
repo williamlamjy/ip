@@ -39,7 +39,6 @@ public abstract class Parser {
         return userInput.contains(" ");
     }
 
-
     /**
      * Returns the corresponding command object from the user input
      * Error messages will be shown if the input format is incorrect
@@ -83,9 +82,7 @@ public abstract class Parser {
      */
     public static Task identifyTaskType(String commandWord, String userInput)
             throws EmptyTaskInputException, EmptyTimeException {
-        if (!isSeparated(userInput)) {
-            throw new EmptyTaskInputException();
-        }
+        validTaskInputChecker(userInput);
         if (commandWord.equals(AddTask.TODO_COMMAND)) {
             String description = parseAfterSpace(userInput);
             return new Todo(description);
@@ -93,9 +90,14 @@ public abstract class Parser {
             validTimelineChecker(userInput);
             String timeline = getTimeline(userInput);
             String description = getSpecialTaskDescription(userInput);
-            if (userInput.startsWith("deadline")) {
-                deadlineDate = LocalDate.parse(timeline);
-                return new Deadline(description, deadlineDate);
+            if (commandWord.equals(AddTask.DEADLINE_COMMAND)) {
+                try {
+                    deadlineDate = LocalDate.parse(timeline);
+                    return new Deadline(description, deadlineDate);
+                } catch (Exception e) {
+                    System.out.println("Please input a valid deadline date format: YYYY-MM-DD");
+                }
+                throw new EmptyTaskInputException();
             } else {
                 return new Event(description, timeline);
             }
@@ -165,6 +167,12 @@ public abstract class Parser {
     private static void validNumberInputChecker(String userInput) throws EmptyNumberInputException {
         if (!isSeparated(userInput) || (userInput.indexOf(" ") + 1 == userInput.length())) {
             throw new EmptyNumberInputException();
+        }
+    }
+
+    private static void validTaskInputChecker(String userInput) throws EmptyTaskInputException {
+        if (!isSeparated(userInput) || (userInput.indexOf(" ") + 1 == userInput.length())) {
+            throw new EmptyTaskInputException();
         }
     }
 

@@ -1,3 +1,16 @@
 luke.tasktype.Todo;true;run
 luke.tasktype.Deadline;true;exam;2020-08-08
 luke.tasktype.Deadline;false;;2020-08-08
+luke.tasktype.Event;true;sleep;3-4pm
+luke.tasktype.Deadline;false;exam;2020-10-08
+luke.tasktype.Deadline;false;cs exam;2020-08-08
+luke.tasktype.Deadline;false;cs exam;2020-08-08
+luke.tasktype.Deadline;false;sdfsdf;2020-08-08
+luke.tasktype.Deadline;false;fsdfsDf;2020-08-08
+luke.tasktype.Deadline;true;fdssf;2021-12-12
+luke.tasktype.Deadline;true;asdfasf;2021-09-09
+luke.tasktype.Event;true;run;3-4pm
+luke.tasktype.Todo;true;sleep
+luke.tasktype.Todo;false;run
+luke.tasktype.Todo;false;work
+luke.tasktype.Event;false;drawing;2-6pm

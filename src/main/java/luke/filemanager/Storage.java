@@ -66,13 +66,13 @@ public class Storage {
         int taskNo = 0;
         while (s.hasNext()) {
             String[] textSegment = s.nextLine().split(";");
-            if (textSegment[0].equals("duke.tasktype.Todo")) {
+            if (textSegment[0].equals("luke.tasktype.Todo")) {
                 Task todo = new Todo(textSegment[2]);
                 tasks.add(todo);
                 if (textSegment[1].equals("true")) {
                     tasks.get(taskNo).markAsDone();
                 }
-            } else if (textSegment[0].equals("duke.tasktype.Event")) {
+            } else if (textSegment[0].equals("luke.tasktype.Event")) {
                 Task event = new Event(textSegment[2], textSegment[3]);
                 tasks.add(event);
                 if (textSegment[1].equals("true")) {
