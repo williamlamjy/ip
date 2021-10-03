@@ -13,4 +13,5 @@ luke.tasktype.Event;true;run;3-4pm
 luke.tasktype.Todo;true;sleep
 luke.tasktype.Todo;false;run
 luke.tasktype.Todo;false;work
-luke.tasktype.Event;false;drawing;2-6pm
+luke.tasktype.Event;true;drawing;2-6pm
+luke.tasktype.Todo;false;tut
