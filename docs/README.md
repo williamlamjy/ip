@@ -1,7 +1,7 @@
 # Luke User Guide
 
 Luke is an interactive desktop application that serves as a task manager that operates in the Command Line Interface.
-- **Quick Start**
+- [**Quick Start**](#Quick-Start)
 - **Features**
     - **Adding a Todo task: `todo`**
     - **Adding a Deadline task: `deadline`**
